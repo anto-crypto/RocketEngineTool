@@ -8,14 +8,14 @@ def opening():
     print('=' * (10 + length))
 
 
-def controll_element(prompt):
+def control_element(prompt):
     while True:
         try:
             element = float(input(prompt))
-            if element >= 0:
+            if element > 0:
                 break
             else:
-                print('Error! Please enter a positiv number.')
+                print('Error! Please enter a positive number.')
                 continue
         except ValueError:
             print('Error! Please enter a number.')
@@ -25,10 +25,10 @@ def controll_element(prompt):
 def main():
     opening()
 
-    propellant_mass = controll_element('Propellant mass [kg]: ')
-    dry_mass = controll_element('Dry mass [kg]: ')
-    specific_impulse = controll_element('Specific impulse [s]: ')
-    burn_time = controll_element('Burn time [s]: ')
+    propellant_mass = control_element('Propellant mass [kg]: ')
+    dry_mass = control_element('Dry mass [kg]: ')
+    specific_impulse = control_element('Specific impulse [s]: ')
+    burn_time = control_element('Burn time [s]: ')
 
     from propulsion.rocket_equation import mass_flow_rate
     from propulsion.rocket_equation import effective_exhaust_velocity
@@ -36,6 +36,7 @@ def main():
     from propulsion.rocket_equation import total_impulse
     from propulsion.rocket_equation import delta_v
     from propulsion.rocket_equation import t_w
+    from propulsion.rocket_equation import mass_at_time
 
     m = mass_flow_rate(propellant_mass, burn_time)
     e = effective_exhaust_velocity(specific_impulse)
@@ -43,6 +44,7 @@ def main():
     to = total_impulse(propellant_mass, burn_time, specific_impulse)
     d = delta_v(specific_impulse, dry_mass, propellant_mass)
     tw = t_w(propellant_mass, burn_time, specific_impulse, dry_mass)
+    
 
     print(f'Mass flow rate = {m:.3f} kg/s')
     print(f'Effective exhaust velocity = {e:.3f} m/s')
@@ -50,6 +52,7 @@ def main():
     print(f'Total impulse = {to:.3f} Ns')
     print(f'Delta v = {d:.3f} m/s')
     print(f'T/W = {tw:.3f}')
+    m_t = mass_at_time(propellant_mass, dry_mass, burn_time)
 
     from plotting.plots import thrust_time_graphic
     from plotting.plots import remaining_mass_time

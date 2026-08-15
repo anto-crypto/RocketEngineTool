@@ -1,4 +1,5 @@
 import math
+from utils.tools import time_points
 G0 = 9.80665
 
 def mass_flow_rate(propellant_mass, burn_time):
@@ -23,4 +24,13 @@ def t_w(propellant_mass, burn_time, specific_impulse, dry_mass):
     m = mass_flow_rate(propellant_mass, burn_time)
     t = m * specific_impulse * G0
     return t / ((dry_mass + propellant_mass) * G0)
+
+def mass_at_time(propellant_mass, dry_mass, burn_time):
+    m = propellant_mass / burn_time
+    m0 = propellant_mass + dry_mass
+    time_l = time_points(burn_time)
+    m_t = []
+    for i in time_l:
+        value = m0 - m * i
+        print(f't = {i} s ---> {value} kg')
 
