@@ -15,30 +15,30 @@ def test_mass_flow_rate():
 
 
 def test_effective_exhaust_velocity():
-    result = effective_exhaust_velocity(250)
+    result = effective_exhaust_velocity(250, 9.80665)
 
     assert abs(result - 2451.6625) < 0.001
 
 
 def test_thrust():
-    result = thrust(20, 5, 250)
+    result = thrust(20, 5, 250, 9.80665)
 
     assert abs(result - 9806.65) < 0.001
 
 
 def test_total_impulse():
-    result = total_impulse(20, 5, 250)
+    result = total_impulse(20, 5, 250, 9.80665)
 
     assert abs(result - 49033.25) < 0.001
 
 
 def test_delta_v():
-    result = delta_v(250, 10, 20)
+    result = delta_v(250, 10, 20, 9.80665)
 
     assert abs(result - 2693.427) < 0.001
 
 
 def test_t_w():
-    result = t_w(20, 5, 250, 10)
+    result = t_w(20, 5, 250, 10, 9.80665)
 
     assert abs(result - 33.333333) < 0.001

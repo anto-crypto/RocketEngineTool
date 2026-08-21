@@ -1,18 +1,20 @@
 import matplotlib.pyplot as plt
 from utils.tools import time_points
-from propulsion.rocket_equation import mass_flow_rate
-from propulsion.rocket_equation import thrust
+from propulsion.rocket_equation import (
+    mass_flow_rate,
+    thrust,
+    mass_at_time
+)
 
-G0 = 9.80655
 
 
 
 
-def thrust_time_graphic(burn_time, propellant_mass, specific_impulse):
+def thrust_time_graphic(burn_time, propellant_mass, specific_impulse, g_x):
     time = time_points(burn_time)
     thrust_l = []
     for i in time:
-        t = thrust(propellant_mass, burn_time, specific_impulse)
+        t = thrust(propellant_mass, burn_time, specific_impulse, g_x)
         thrust_l.append(t)
 
     plt.plot(time, thrust_l)
@@ -25,8 +27,9 @@ def thrust_time_graphic(burn_time, propellant_mass, specific_impulse):
 def remaining_mass_time(dry_mass, propellant_mass, burn_time):
     time = time_points(burn_time)
     mass_l = []
+    m_t = mass_at_time(propellant_mass, dry_mass, burn_time)
     for i in time:
-        m = dry_mass + propellant_mass - mass_flow_rate(propellant_mass, burn_time) * i
+        m = m_t[i]
         mass_l.append(m)
 
     plt.plot(time, mass_l)
@@ -37,13 +40,14 @@ def remaining_mass_time(dry_mass, propellant_mass, burn_time):
     plt.show()
 
 
-def thrust_to_weight_time(burn_time, propellant_mass,dry_mass, specific_impulse):
+def thrust_to_weight_time(burn_time, propellant_mass,dry_mass, specific_impulse, g_x):
     time = time_points(burn_time)
     tw_l = []
+    m_t = mass_at_time(propellant_mass, dry_mass, burn_time)
     for i in time:
-        t = thrust(propellant_mass, burn_time, specific_impulse)
-        m = dry_mass + propellant_mass - mass_flow_rate(propellant_mass, burn_time) * i
-        tw = t / (m * G0)
+        t = thrust(propellant_mass, burn_time, specific_impulse, g_x)
+        m = m_t[i]
+        tw = t / (m * g_x)
         tw_l.append(tw)
     
     plt.plot(time, tw_l)
