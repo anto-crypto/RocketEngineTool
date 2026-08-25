@@ -24,12 +24,11 @@ def main():
     from propulsion.rocket_equation import mass_at_time
 
     m = mass_flow_rate(propellant_mass, burn_time)
-    e = effective_exhaust_velocity(specific_impulse, g_x)
-    th = thrust(propellant_mass, burn_time, specific_impulse, g_x)
-    to = total_impulse(propellant_mass, burn_time, specific_impulse, g_x)
-    d = delta_v(specific_impulse, dry_mass, propellant_mass, g_x)
+    e = effective_exhaust_velocity(specific_impulse)
+    th = thrust(propellant_mass, burn_time, specific_impulse)
+    to = total_impulse(propellant_mass, burn_time, specific_impulse)
+    d = delta_v(specific_impulse, dry_mass, propellant_mass)
     tw = t_w(propellant_mass, burn_time, specific_impulse, dry_mass, g_x)
-    
 
     print(f'Mass flow rate = {m:.3f} kg/s')
     print(f'Effective exhaust velocity = {e:.3f} m/s')
@@ -38,15 +37,16 @@ def main():
     print(f'Delta v = {d:.3f} m/s')
     print(f'T/W = {tw:.3f}')
 
-    m_t = mass_at_time(propellant_mass, dry_mass, burn_time)
-    for key, value in m_t.items():
-        print(f't = {key:.1f} s  --->  {int(value)} kg')
+    time_list = time_points(burn_time)
+    for i in time_list:
+        m_t = mass_at_time(propellant_mass, dry_mass, burn_time, i)
+        print(f't = {i:.1f} s  --->  {int(m_t)} kg')
 
     from plotting.plots import thrust_time_graphic
     from plotting.plots import remaining_mass_time
     from plotting.plots import thrust_to_weight_time
 
-    thrust_time_graphic(burn_time, propellant_mass, specific_impulse, g_x)
+    thrust_time_graphic(burn_time, propellant_mass, specific_impulse)
     remaining_mass_time(dry_mass, propellant_mass, burn_time)
     thrust_to_weight_time(burn_time, propellant_mass,dry_mass, specific_impulse, g_x)
     

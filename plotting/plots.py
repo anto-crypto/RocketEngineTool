@@ -7,16 +7,14 @@ from propulsion.rocket_equation import (
 )
 
 
-
-
-
-def thrust_time_graphic(burn_time, propellant_mass, specific_impulse, g_x):
+def thrust_time_graphic(burn_time, propellant_mass, specific_impulse):
     time = time_points(burn_time)
     thrust_l = []
     for i in time:
-        t = thrust(propellant_mass, burn_time, specific_impulse, g_x)
+        t = thrust(propellant_mass, burn_time, specific_impulse)
         thrust_l.append(t)
 
+    plt.figure()
     plt.plot(time, thrust_l)
     plt.xlabel('Time')
     plt.ylabel('Thrust')
@@ -27,11 +25,11 @@ def thrust_time_graphic(burn_time, propellant_mass, specific_impulse, g_x):
 def remaining_mass_time(dry_mass, propellant_mass, burn_time):
     time = time_points(burn_time)
     mass_l = []
-    m_t = mass_at_time(propellant_mass, dry_mass, burn_time)
     for i in time:
-        m = m_t[i]
-        mass_l.append(m)
+        m_t = mass_at_time(propellant_mass, dry_mass, burn_time, i)
+        mass_l.append(m_t)
 
+    plt.figure()
     plt.plot(time, mass_l)
     plt.xlabel('Time')
     plt.ylabel('Remaining Mass')
@@ -39,17 +37,16 @@ def remaining_mass_time(dry_mass, propellant_mass, burn_time):
     plt.grid(True)
     plt.show()
 
-
 def thrust_to_weight_time(burn_time, propellant_mass,dry_mass, specific_impulse, g_x):
     time = time_points(burn_time)
     tw_l = []
-    m_t = mass_at_time(propellant_mass, dry_mass, burn_time)
     for i in time:
-        t = thrust(propellant_mass, burn_time, specific_impulse, g_x)
-        m = m_t[i]
-        tw = t / (m * g_x)
+        m_t = mass_at_time(propellant_mass, dry_mass, burn_time, i)
+        t = thrust(propellant_mass, burn_time, specific_impulse)
+        tw = t / (m_t * g_x)
         tw_l.append(tw)
     
+    plt.figure()
     plt.plot(time, tw_l)
     plt.xlabel('Time')
     plt.ylabel('T/W')

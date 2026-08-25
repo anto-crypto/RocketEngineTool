@@ -45,6 +45,8 @@ def select_gravity():
             environment = int(input('Select the environment for the gravity: '))
         except ValueError:
             print('Error! Please chose one of the numbers requested.')
+            continue
+            
 
         #Checking the G
         if environment == 1:

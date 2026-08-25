@@ -35,3 +35,11 @@ ___21 August 2026___
 
 
 
+___25 August 2026___
+
+	Today I fixed some parts of the programm because some formulas wheren't corrcet. Also added some __init__.py files because I had forgot.
+
+ Problems:
+ - Fixing the formulas mean fixint a lot of code since thei are tied
+ Learned:
+ - that the gravity doesn't change the results on the current formulas except for t/w formula
