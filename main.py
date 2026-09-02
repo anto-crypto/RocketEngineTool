@@ -22,6 +22,7 @@ def main():
     from propulsion.rocket_equation import delta_v
     from propulsion.rocket_equation import t_w
     from propulsion.rocket_equation import mass_at_time
+    from propulsion.rocket_equation import t_w_t
 
     m = mass_flow_rate(propellant_mass, burn_time)
     e = effective_exhaust_velocity(specific_impulse)
@@ -40,7 +41,8 @@ def main():
     time_list = time_points(burn_time)
     for i in time_list:
         m_t = mass_at_time(propellant_mass, dry_mass, burn_time, i)
-        print(f't = {i:.1f} s  --->  {int(m_t)} kg')
+        tw_t = t_w_t(propellant_mass, burn_time, specific_impulse, dry_mass, i)
+        print(f't = {i:.2f} s   --->   {m_t:.2f} kg;   {th} N;   {tw_t:.2f}')
 
     from plotting.plots import thrust_time_graphic
     from plotting.plots import remaining_mass_time

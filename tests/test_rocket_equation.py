@@ -34,6 +34,12 @@ def test_t_w():
     assert abs(result - 33.333333) < 0.001
 
 def test_mass_at_time():
-    result = mass_at_time(20, 10, 5, 0)
-    assert abs(result - 30) < 0.001
+    result_1 = mass_at_time(20, 10, 5, 0)
+    result_2 = mass_at_time(20, 10, 5, 2.5)
+    result_3 = mass_at_time(20, 10, 5, 5)
+    result_3 = mass_at_time(20, 10, 5, 7)
+    assert abs(result_1 - 30) < 0.001
+    assert abs(result_2 - 20) < 0.001
+    assert abs(result_3 - 10) < 0.001
+    assert abs(result_3 - 10) < 0.001
 

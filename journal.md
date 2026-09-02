@@ -43,3 +43,12 @@ ___25 August 2026___
  - Fixing the formulas mean fixint a lot of code since thei are tied
  Learned:
  - that the gravity doesn't change the results on the current formulas except for t/w formula
+
+
+
+___2 August 2026___
+
+	Today I fixed the mass as a function of time so if the time is bigger than the burn time the mass is equal to the dry mass. I also added the T/W in function of time.
+
+ Problems:
+ - had to make a limit for the time so the mass doesn't change when time is bigger than burn time
